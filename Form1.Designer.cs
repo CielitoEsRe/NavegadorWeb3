@@ -31,10 +31,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.navegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonIr = new System.Windows.Forms.Button();
-            this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.webView2 = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.comboBoxDireccion = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -62,17 +62,18 @@
             this.buttonIr.TabIndex = 1;
             this.buttonIr.Text = "Navegar";
             this.buttonIr.UseVisualStyleBackColor = true;
+            this.buttonIr.Click += new System.EventHandler(this.buttonIr_Click);
             // 
-            // webView21
+            // webView2
             // 
-            this.webView21.AllowExternalDrop = true;
-            this.webView21.CreationProperties = null;
-            this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webView21.Location = new System.Drawing.Point(34, 103);
-            this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(1128, 517);
-            this.webView21.TabIndex = 2;
-            this.webView21.ZoomFactor = 1D;
+            this.webView2.AllowExternalDrop = true;
+            this.webView2.CreationProperties = null;
+            this.webView2.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView2.Location = new System.Drawing.Point(34, 103);
+            this.webView2.Name = "webView2";
+            this.webView2.Size = new System.Drawing.Size(1128, 517);
+            this.webView2.TabIndex = 2;
+            this.webView2.ZoomFactor = 1D;
             // 
             // comboBoxDireccion
             // 
@@ -88,15 +89,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1283, 684);
             this.Controls.Add(this.comboBoxDireccion);
-            this.Controls.Add(this.webView21);
+            this.Controls.Add(this.webView2);
             this.Controls.Add(this.buttonIr);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,7 +109,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem navegarToolStripMenuItem;
         private System.Windows.Forms.Button buttonIr;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView2;
         private System.Windows.Forms.ComboBox comboBoxDireccion;
     }
 }
