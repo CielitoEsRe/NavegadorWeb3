@@ -16,6 +16,7 @@ namespace NavegadorWeb
 
     {
         List<Direccion> direcciones = new List<Direccion>();
+        HistorialPersistencia persistencia = new HistorialPersistencia();
 
         public Form1()
         {
@@ -25,45 +26,57 @@ namespace NavegadorWeb
 
         }
 
-
-        private void Guardar(string nombreArchivo)
+        private void CargarHistorial()
         {
+            direcciones = persistencia.Leer();
 
-            FileStream stream = new FileStream(nombreArchivo, FileMode.Append, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(stream);
+            comboBoxDireccion.Items.Clear();
+
             foreach (var direccion in direcciones)
             {
-                writer.WriteLine(direccion.Url);
-                writer.WriteLine(direccion.Veces);
-                writer.WriteLine(direccion.FechaAccesso);
-            }
-
-            writer.Close();
-        }
-        private void Leer()
-        {
-            string nombreArchivo = @"historial.txt";
-
-            if (!File.Exists(nombreArchivo))
-                return;
-
-            FileStream stream = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read);
-            StreamReader reader = new StreamReader(stream);
-
-            while (reader.Peek() > -1)
-            {
-                Direccion direccion = new Direccion();
-
-                direccion.Url = reader.ReadLine();
-                direccion.Veces = int.Parse(reader.ReadLine());
-                direccion.FechaAccesso = DateTime.Parse(reader.ReadLine());
-
-                direcciones.Add(direccion);
                 comboBoxDireccion.Items.Add(direccion.Url);
             }
-
-            reader.Close();
         }
+
+
+        //private void Guardar(string nombreArchivo)
+        //{
+
+        // FileStream stream = new FileStream(nombreArchivo, FileMode.Append, FileAccess.Write);
+        //StreamWriter writer = new StreamWriter(stream);
+        //foreach (var direccion in direcciones)
+        //{
+        //writer.WriteLine(direccion.Url);
+        // writer.WriteLine(direccion.Veces);
+        // writer.WriteLine(direccion.FechaAccesso);
+        //}
+
+        // writer.Close();
+        // }
+        //private void Leer()
+        //{
+            //string nombreArchivo = @"historial.txt";
+
+            //if (!File.Exists(nombreArchivo))
+               // return;
+
+            //FileStream stream = new FileStream(nombreArchivo, FileMode.Open, FileAccess.Read);
+            //StreamReader reader = new StreamReader(stream);
+
+            //while (reader.Peek() > -1)
+            //{
+               // Direccion direccion = new Direccion();
+
+               // direccion.Url = reader.ReadLine();
+               // direccion.Veces = int.Parse(reader.ReadLine());
+                //direccion.FechaAccesso = DateTime.Parse(reader.ReadLine());
+
+                //direcciones.Add(direccion);
+               // comboBoxDireccion.Items.Add(direccion.Url);
+           // }
+
+            //reader.Close();
+        //}
 
         private void Form_Resize(object sender, EventArgs e)
         {
@@ -73,12 +86,9 @@ namespace NavegadorWeb
         }
         private void buttonIr_Click(object sender, EventArgs e)
         {
-            Direccion direccion = new Direccion();
-
             string Url = comboBoxDireccion.Text;
 
-          
-            if (!((Url.Contains("https://")) || (Url.Contains("http://"))))
+            if (!Url.Contains("https://") && !Url.Contains("http://"))
             {
                 Url = "https://" + Url;
             }
@@ -87,16 +97,27 @@ namespace NavegadorWeb
             {
                 webView2.CoreWebView2.Navigate(Url);
 
-               
-                direccion.Url = Url;
-                direccion.FechaAccesso = DateTime.Now;
-                direccion.Veces++;
-               
+                Direccion existente = direcciones.Find(d => d.Url == Url);
 
-                direcciones.Add(direccion);
+                if (existente != null)
+                {
+                    existente.Veces++;
+                    existente.FechaAccesso = DateTime.Now;
+                }
+                else
+                {
+                    Direccion nueva = new Direccion();
+                    nueva.Url = Url;
+                    nueva.Veces = 1;
+                    nueva.FechaAccesso = DateTime.Now;
 
-                Guardar(@"historial.txt");
+                    direcciones.Add(nueva);
+                    comboBoxDireccion.Items.Add(Url);
+                }
+
+                persistencia.Guardar(direcciones);
             }
+
 
         }
         private async void InicializarWebView()
@@ -106,8 +127,9 @@ namespace NavegadorWeb
 
         private void Form1_Load(object sender, EventArgs e)
         {
-         
-            Leer();
+            CargarHistorial();
+            this.Load += Form1_Load;
+            //Leer();
         }
     }
 }

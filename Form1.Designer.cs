@@ -33,6 +33,7 @@
             this.buttonIr = new System.Windows.Forms.Button();
             this.webView2 = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.comboBoxDireccion = new System.Windows.Forms.ComboBox();
+            this.historialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
             this.SuspendLayout();
@@ -41,7 +42,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.navegarToolStripMenuItem});
+            this.navegarToolStripMenuItem,
+            this.historialToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1283, 28);
@@ -83,6 +85,12 @@
             this.comboBoxDireccion.Size = new System.Drawing.Size(1016, 24);
             this.comboBoxDireccion.TabIndex = 3;
             // 
+            // historialToolStripMenuItem
+            // 
+            this.historialToolStripMenuItem.Name = "historialToolStripMenuItem";
+            this.historialToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
+            this.historialToolStripMenuItem.Text = "Historial";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -111,6 +119,7 @@
         private System.Windows.Forms.Button buttonIr;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView2;
         private System.Windows.Forms.ComboBox comboBoxDireccion;
+        private System.Windows.Forms.ToolStripMenuItem historialToolStripMenuItem;
     }
 }
 
